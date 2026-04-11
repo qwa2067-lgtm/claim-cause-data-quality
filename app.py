@@ -60,8 +60,16 @@ METHOD_COLORS = {
 # ── Data loading ───────────────────────────────────────────────────────────────
 
 @st.cache_data
+@st.cache_data
 def load_data():
-    claims    = pd.read_csv(CLASSIFIED_FILE)
+    # Auto-generate data files if they don't exist (e.g. on first Streamlit Cloud boot)
+    if not CLASSIFIED_FILE.exists() or not EXPERIENCE_FILE.exists():
+        import subprocess, sys
+        with st.spinner("Setting up — generating and classifying claims data (first run only)..."):
+            subprocess.run([sys.executable, str(FOLDER / "generate_claims.py")], check=True)
+            subprocess.run([sys.executable, str(FOLDER / "classifier.py")],      check=True)
+            subprocess.run([sys.executable, str(FOLDER / "experience_study.py")], check=True)
+    claims     = pd.read_csv(CLASSIFIED_FILE)
     experience = pd.read_csv(EXPERIENCE_FILE)
     return claims, experience
 

@@ -1,0 +1,18 @@
+# Generated data files — run generate_claims.py to recreate
+claims_data.csv
+claims_classified.csv
+experience_study.csv
+
+# Trained model — run classifier.py to recreate
+model/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+
+# Streamlit
+.streamlit/secrets.toml

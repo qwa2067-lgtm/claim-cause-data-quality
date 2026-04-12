@@ -28,7 +28,6 @@ Requirements:
     pip install pandas numpy
 """
 
-import numpy as np
 import pandas as pd
 from pathlib import Path
 
@@ -172,11 +171,12 @@ def main():
     print("-" * 60)
     for _, row in before_ae.iterrows():
         marker = " ◄ TOTAL" if row["cause"] == "TOTAL" else ""
+        ae_str = f"{row['ae_before']:>8.2f}" if row["ae_before"] is not None else f"{'N/A':>8}"
         print(
             f"{row['cause']:<30} "
             f"{row['actual_before']:>8} "
             f"{row['expected_before']:>10.1f} "
-            f"{row['ae_before']:>8.2f}"
+            f"{ae_str}"
             f"{marker}"
         )
 
@@ -185,11 +185,12 @@ def main():
     print("-" * 60)
     for _, row in after_ae.iterrows():
         marker = " ◄ TOTAL" if row["cause"] == "TOTAL" else ""
+        ae_str = f"{row['ae_after']:>8.2f}" if row["ae_after"] is not None else f"{'N/A':>8}"
         print(
             f"{row['cause']:<30} "
             f"{row['actual_after']:>8} "
             f"{row['expected_after']:>10.1f} "
-            f"{row['ae_after']:>8.2f}"
+            f"{ae_str}"
             f"{marker}"
         )
 

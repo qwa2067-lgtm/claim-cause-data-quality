@@ -12,8 +12,6 @@ Requirements:
     pip install streamlit pandas numpy scikit-learn rapidfuzz faker
 """
 
-import pickle
-import numpy as np
 import pandas as pd
 import streamlit as st
 from pathlib import Path
@@ -60,7 +58,6 @@ METHOD_COLORS = {
 # ── Data loading ───────────────────────────────────────────────────────────────
 
 @st.cache_data
-@st.cache_data
 def load_data():
     # Auto-generate data files if they don't exist (e.g. on first Streamlit Cloud boot)
     if not CLASSIFIED_FILE.exists() or not EXPERIENCE_FILE.exists():
@@ -75,30 +72,6 @@ def load_data():
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
-
-def colour_ae(val):
-    """Colour A/E ratio cells: red if high, green if near 100%, grey if low."""
-    if pd.isna(val):
-        return ""
-    if val > 120:
-        return "color:#C0392B;font-weight:bold"
-    if val > 100:
-        return "color:#E67E22;font-weight:bold"
-    if val < 80:
-        return "color:#2980B9"
-    return "color:#27AE60;font-weight:bold"
-
-
-def ae_bar(value, max_val=150, color="#C0392B"):
-    """Return an HTML progress-bar style cell for A/E ratio."""
-    pct = min(value / max_val * 100, 100)
-    return (
-        f"<div style='background:#f0f0f0;border-radius:4px;height:18px;width:100%;'>"
-        f"<div style='background:{color};width:{pct:.0f}%;height:18px;"
-        f"border-radius:4px;'></div></div>"
-        f"<div style='font-size:0.82em;text-align:right;'>{value:.1f}</div>"
-    )
-
 
 def metric_card(label, value, sub="", color="#2C3E50"):
     return (
@@ -136,7 +109,7 @@ def main():
             "A production implementation would connect directly to the administration system, "
             "include a formal actuary sign-off workflow, full audit trail, and ongoing model retraining "
             "as new labelled examples accumulate.\n\n"
-            "*Built by Amy Wang — actuary (FIAA), 11 years in Australian life insurance and reinsurance.*"
+            "*Built by Amy Wang (FIAA).*"
         )
 
     claims, experience = load_data()
@@ -239,8 +212,9 @@ def main():
         st.markdown("---")
         st.markdown("### The scale of the problem in this dataset")
 
-        before_other = claims["before_cause"].value_counts().get("Other / Unknown", 0) \
-            if "before_cause" in claims.columns else 0
+        before_other = int(
+            experience.loc[experience["cause"] == "Other / Unknown", "actual_before"].values[0]
+        )
         after_other  = claims["predicted_cause"].value_counts().get("Other / Unknown", 0)
         rescued      = before_other - after_other
 

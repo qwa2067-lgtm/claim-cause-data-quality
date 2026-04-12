@@ -17,13 +17,12 @@ Usage:
     python3 generate_claims.py
 
 Requirements:
-    pip install pandas numpy faker
+    pip install pandas numpy
 """
 
 import random
 import numpy as np
 import pandas as pd
-from faker import Faker
 from pathlib import Path
 
 # ── Config ─────────────────────────────────────────────────────────────────────
@@ -175,8 +174,6 @@ MESSY_CAUSES = {
 def generate_claims(n: int, seed: int) -> pd.DataFrame:
     random.seed(seed)
     np.random.seed(seed)
-    fake = Faker("en_AU")
-    Faker.seed(seed)
 
     categories = list(FSC_CATEGORIES.keys())
     weights    = list(FSC_CATEGORIES.values())

@@ -32,7 +32,6 @@ Requirements:
 """
 
 import re
-import json
 import pickle
 import numpy as np
 import pandas as pd
@@ -225,7 +224,7 @@ def classify_claims(df: pd.DataFrame, pipeline: Pipeline) -> pd.DataFrame:
     all_texts = df["raw_cause"].fillna("").astype(str).tolist()
     ml_preds, ml_confs = ml_predict(pipeline, all_texts)
 
-    for i, row in df.iterrows():
+    for pos, (i, row) in enumerate(df.iterrows()):
         raw = str(row["raw_cause"]).strip()
 
         # Layer 1 — rules
@@ -251,8 +250,8 @@ def classify_claims(df: pd.DataFrame, pipeline: Pipeline) -> pd.DataFrame:
             continue
 
         # Layer 3 — ML
-        pred       = ml_preds[i]
-        confidence = ml_confs[i]
+        pred       = ml_preds[pos]
+        confidence = ml_confs[pos]
         review     = confidence < CONFIDENCE_THRESHOLD
         results.append({
             "predicted_cause": pred,

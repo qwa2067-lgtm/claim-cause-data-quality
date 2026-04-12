@@ -112,6 +112,19 @@ def main():
             "*Built by Amy Wang (FIAA).*"
         )
 
+    with st.expander("⚠️ Disclaimer", expanded=False):
+        st.markdown(
+            "This tool uses **synthetic data** generated for illustration purposes only. "
+            "It does not contain any real policyholder information.\n\n"
+            "The FSC cause categories, expected incidence rates, and A/E ratios shown are "
+            "illustrative and loosely based on publicly available Australian TPD industry experience. "
+            "They are not intended to represent any specific insurer's actual experience, "
+            "and should not be used for pricing, reserving, or any other actuarial purpose.\n\n"
+            "The classification pipeline is a working prototype. "
+            "A production implementation would require formal validation, an actuary sign-off workflow, "
+            "a full audit trail, and compliance with applicable data governance requirements."
+        )
+
     claims, experience = load_data()
 
     # ── Tabs ──────────────────────────────────────────────────────────────────

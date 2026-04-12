@@ -324,8 +324,10 @@ def main():
         st.markdown("---")
         st.markdown("### Accuracy vs ground truth")
         st.markdown(
-            "_In a real system, ground truth is not available — it has to be derived. "
-            "Here we use the synthetic true_cause field to validate the classifier._"
+            "_Accuracy = the share of claims where the classifier's predicted FSC category matches "
+            "the known true category. It is calculated as: correct predictions ÷ total claims. "
+            "In a real system, ground truth is not available — it has to be derived through actuary review. "
+            "Here we use the synthetic true_cause field assigned at data generation to validate the classifier._"
         )
 
         correct  = (claims["predicted_cause"] == claims["true_cause"]).sum()

@@ -109,7 +109,7 @@ def main():
             "A production implementation would connect directly to the administration system, "
             "include a formal actuary sign-off workflow, full audit trail, and ongoing model retraining "
             "as new labelled examples accumulate.\n\n"
-            "*Built by Amy Wang (FIAA).*"
+            "*Built by Amy Wang, FIAA.*"
         )
 
     with st.expander("⚠️ Disclaimer", expanded=False):

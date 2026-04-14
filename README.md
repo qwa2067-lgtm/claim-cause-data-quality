@@ -84,4 +84,4 @@ This tool uses **synthetic data** generated for illustration purposes only. It d
 
 ---
 
-*Built by Amy Wang — actuary (FIAA), 11 years in Australian life insurance and reinsurance.*
+*Built by Amy Wang — actuary (FIAA).*
